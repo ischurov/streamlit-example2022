@@ -22,8 +22,8 @@ print_hello(name)
 Чтобы заработали библиотеки seaborn и altair, нужно добавить в проект файл 
 requirements.txt с такими строчками:
 
-     seaborn
-     altair
+    seaborn
+    altair
 """
 
 
