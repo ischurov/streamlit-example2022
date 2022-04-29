@@ -20,7 +20,7 @@ print_hello(name)
 """
 ## Добавим графики
 Чтобы заработали библиотеки seaborn и altair, нужно добавить в проект файл 
-requirements.txt с такими строчками:
+`requirements.txt` с такими строчками:
 
     seaborn
     altair
