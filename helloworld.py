@@ -41,19 +41,26 @@ st.pyplot(fig)
 
 @st.cache
 def get_data():
-    data_url = "https://github.com/Godoy/imdb-5000-movie-dataset/raw/master/data/movie_metadata.csv"
+    data_url = (
+        "https://github.com/Godoy/imdb-5000-movie-dataset/raw/"
+        "master/data/movie_metadata.csv"
+    )
     return (
         pd.read_csv(data_url)
         .dropna(subset=["title_year"])
         .assign(
-            title_year=lambda x: pd.to_datetime(x["title_year"].astype(int).astype(str))
+            title_year=lambda x: pd.to_datetime(
+                x["title_year"], format="%Y"
+            )
         )
     )
 
 
 df = get_data()
 
-director = st.selectbox("Director", df["director_name"].value_counts().iloc[:10].index)
+director = st.selectbox(
+    "Director", df["director_name"].value_counts().iloc[:10].index
+)
 
 df_selection = df[lambda x: x["director_name"] == director]
 df_selection
@@ -66,6 +73,8 @@ chart = (
 
 st.altair_chart(
     (
-        chart + chart.transform_loess("title_year", "imdb_score").mark_line()
+        chart
+        + chart.transform_loess("title_year", "imdb_score").mark_line()
     ).interactive()
+    # .transform_loess добавляет сглаживающую кривую
 )
